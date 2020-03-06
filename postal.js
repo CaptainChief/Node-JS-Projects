@@ -1,6 +1,7 @@
 function getAmount(type, weight)
 {
-   var amount = 0;
+   var amount = 0.0;
+   amount.toFixed(2)
 
    if (type == "Letters (Stamped)")
    {
