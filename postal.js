@@ -168,7 +168,8 @@ function getAmount(type, weight)
    }
    if(amount != "unknown")
    {
-      amount.toFixed(2)
+      amount.toFixed(2);
+      amount = "$" + amount;
    }
 
    return amount;
