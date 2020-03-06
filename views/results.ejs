@@ -3,16 +3,25 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
+   <link rel="stylesheet" type="text/css" href="css/styles.css">
+   <title>Postal Rate Calculator</title>
 </head>
 <body>
 
-   <h1>Results</h1>
-   <p>The type of mail is <%= type %></p>
-   <p>The weight of your mail is <%= weight %></p>
-   <h2>The total amount of money is $<%= amount %></h2>
-   
-   <br><br>
-   <button><a href='/'>Calculate Again</a></button>
+   <div class="center div1">
+      <br>
+      <h1>Results</h1>
+      <br>
+   </div>
+   <br><hr><br>
+   <div class="center div2">
+      <br><br>
+      <p>The type of mail is <%= type %>.</p>
+      <p>The weight of your mail is <%= weight %> oz.</p>
+      <h2>The total amount of money is <%= amount %></h2>
+      
+      <br><br>
+      <button><a href='/'>Calculate Again</a></button><br><br>
+   </div>
 </body>
 </html>

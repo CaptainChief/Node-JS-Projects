@@ -1,4 +1,23 @@
 body
 {
-   background-color: rgba(16, 122, 122, 0.589);
+   background-color: rgba(42, 108, 171, 0.589);
+}
+
+.center
+{
+   text-align: center;
+}
+
+.div1
+{
+   margin-right: 400px;
+   margin-left: 400px;
+   background-color: rgba(42, 108, 171, 0.589)
+}
+
+.div2
+{
+   margin-right: 350px;
+   margin-left: 350px;
+   background-color: rgba(74, 42, 171, 0.589)
 }

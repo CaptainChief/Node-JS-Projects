@@ -1,6 +1,6 @@
 const express = require('express');
 
-var gameEngine = require('./postal.js');
+var postal = require('./postal.js');
 
 var app = express();
 
