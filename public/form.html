@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" type="text/css" href="css/styles.css">
+   <title>Document</title>
+</head>
+<body>
+   <form action="/postal" method="get">
+      Enter the weight of your mail (oz.): <input type="number" name="weight"><br>
+      <span>The type of mail you are sending: </span>
+      <select name="letter_type">
+         <option value="rock">Letters (Stamped)</option>
+         <option value="paper">Letters (Metered)</option>
+         <option value="scissors">Large Envelopes (Flats)</option>
+         <option value="scissors">First-Class Package Service—Retail</option>
+      </select>
+      <br>
+      <button type="submit" value="Calculate">Calculate</button>
+   </form>
+</body>
+</html>
