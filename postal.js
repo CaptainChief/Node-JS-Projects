@@ -6,19 +6,19 @@ function getAmount(type, weight)
    {
       if(weight <= 1.0)
       {
-         amount = "$" + 0.55;
+         amount = 0.55;
       }
       else if(weight <= 2.0)
       {
-         amount = "$" + 0.70;
+         amount = 0.70;
       }
       else if(weight <= 3.0)
       {
-         amount = "$" + 0.85;
+         amount = 0.85;
       }
       else if(weight <= 3.5)
       {
-         amount = "$" + 1.0;
+         amount = 1.0;
       }
       else
       {
@@ -29,19 +29,19 @@ function getAmount(type, weight)
    {
       if(weight <= 1.0)
       {
-         amount = "$" + 0.50;
+         amount = 0.50;
       }
       else if(weight <= 2.0)
       {
-         amount = "$" + 0.65;
+         amount = 0.65;
       }
       else if(weight <= 3.0)
       {
-         amount = "$" + 0.80;
+         amount = 0.80;
       }
       else if(weight <= 3.5)
       {
-         amount = "$" + 0.95;
+         amount = 0.95;
       }
       else
       {
@@ -52,55 +52,55 @@ function getAmount(type, weight)
    {
       if(weight <= 1.0)
       {
-         amount = "$" + 1.00;
+         amount = 1.00;
       }
       else if(weight <= 2.0)
       {
-         amount = "$" + 1.20;
+         amount = 1.20;
       }
       else if(weight <= 3.0)
       {
-         amount = "$" + 1.40;
+         amount = 1.40;
       }
       else if(weight <= 4.0)
       {
-         amount = "$" + 1.60;
+         amount = 1.60;
       }
       else if(weight <= 5.0)
       {
-         amount = "$" + 1.80;
+         amount = 1.80;
       }
       else if(weight <= 6.0)
       {
-         amount = "$" + 2.00;
+         amount = 2.00;
       }
       else if(weight <= 7.0)
       {
-         amount = "$" + 2.20;
+         amount = 2.20;
       }
       else if(weight <= 8.0)
       {
-         amount = "$" + 2.40;
+         amount = 2.40;
       }
       else if(weight <= 9.0)
       {
-         amount = "$" + 2.60;
+         amount = 2.60;
       }
       else if(weight <= 10.0)
       {
-         amount = "$" + 2.80;
+         amount = 2.80;
       }
       else if(weight <= 11.0)
       {
-         amount = "$" + 3.00;
+         amount = 3.00;
       }
       else if(weight <= 12.0)
       {
-         amount = "$" + 3.20;
+         amount = 3.20;
       }
       else if(weight <= 13.0)
       {
-         amount = "$" + 3.40;
+         amount = 3.40;
       }
       else
       {
@@ -111,60 +111,64 @@ function getAmount(type, weight)
    {
       if(weight <= 1.0)
       {
-         amount = "$" + 3.80;
+         amount = 3.80;
       }
       else if(weight <= 2.0)
       {
-         amount = "$" + 3.80;
+         amount = 3.80;
       }
       else if(weight <= 3.0)
       {
-         amount = "$" + 3.80;
+         amount = 3.80;
       }
       else if(weight <= 4.0)
       {
-         amount = "$" + 3.80;
+         amount = 3.80;
       }
       else if(weight <= 5.0)
       {
-         amount = "$" + 4.60;
+         amount = 4.60;
       }
       else if(weight <= 6.0)
       {
-         amount = "$" + 4.60;
+         amount = 4.60;
       }
       else if(weight <= 7.0)
       {
-         amount = "$" + 4.60;
+         amount = 4.60;
       }
       else if(weight <= 8.0)
       {
-         amount = "$" + 4.60;
+         amount = 4.60;
       }
       else if(weight <= 9.0)
       {
-         amount = "$" + 5.30;
+         amount = 5.30;
       }
       else if(weight <= 10.0)
       {
-         amount = "$" + 5.30;
+         amount = 5.30;
       }
       else if(weight <= 11.0)
       {
-         amount = "$" + 5.30;
+         amount = 5.30;
       }
       else if(weight <= 12.0)
       {
-         amount = "$" + 5.30;
+         amount = 5.30;
       }
       else if(weight <= 13.0)
       {
-         amount = "$" + 5.90;
+         amount = 5.90;
       }
       else
       {
          amount = "unknown";
       }
+   }
+   if(amount != "unknown")
+   {
+      amount.toFixed(2)
    }
 
    return amount;
