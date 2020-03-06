@@ -1,7 +1,7 @@
 function getAmount(type, weight)
 {
    var amount = 0.0;
-   amount.toFixed(2)
+   amount = amount.toFixed(2)
 
    if(weight > 0)
    {
@@ -176,7 +176,7 @@ function getAmount(type, weight)
       }
       if(amount != "unknown")
       {
-         amount.toFixed(2);
+         amount = amount.toFixed(2);
          amount = "$" + amount;
       }
    }
