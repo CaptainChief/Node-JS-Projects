@@ -24,31 +24,43 @@ app.set('port', process.env.PORT || 5001)
 
   .get('/season', function(req, res, next)
     {
-      var id = req.query.season;
-      pool.query("SELECT id, e_num, e_name FROM episodes WHERE s_id = " + id, function(err, result)
+      var season_id = req.query.season;
+      pool.query("SELECT id, e_num, e_name FROM episodes WHERE s_id = " + season_id, function(err, result)
       {
         if(err)
         {
-          console.log('There was an error in searching the database: ', err);
+          console.log('There was an error in searching the database: \n', err);
         }
         else
         {
-          res.json(result.rows);
+
+          var id = [];
+          var e_num = [];
+          var e_name = [];
+
+          for(var i = 0; i < result.rowCount; i++)
+          {
+            id.push(result.rows[i].id);
+            e_num.push(result.rows[i].e_num);
+            e_name.push(result.rows[i].e_name);
+          }
+
+          var season_data = 
+          { 
+            episode_id: id, //array
+            episode_number: e_num, //array
+            episode_name: e_name, //array 
+            season_id: season_id
+          };
+          res.render("./season", season_data);
         }
       })
     })
-  // .get('/season_2', episode.season_2)
-  // .get('/season_3', episode.season_3)
-  // .get('/season_4', episode.season_4)
-  // .get('/season_5', episode.season_5)
-  // .get('/season_6', episode.season_6)
-  // .get('/season_7', episode.season_7)
-  // .get('/season_8', episode.season_8)
 
   // set default route and content
   .get('/', function(req, res) 
   {
-    res.sendFile('./main.html', { root: __dirname + "/public" });
+    res.sendFile('./test', { root: __dirname + "/public" });
   })
 
   // run localhost

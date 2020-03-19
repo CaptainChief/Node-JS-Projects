@@ -1,0 +1,223 @@
+/* Title */
+.title
+{
+
+    font-family: 'Sonsie One', 'Arial Narrow', Arial, sans-serif, Helvetica, sans-serif;
+    font-style: italic;
+    font-weight: bold;
+}
+
+/* Image above menu bar */
+.headerLogo 
+{
+    background-image: url('./psych_main.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: top center;
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}  
+
+.create
+{
+    width: 300px;
+    margin: auto;
+}
+
+.details
+{
+    width: 225px;
+    margin: auto;
+}
+
+.inner-left
+{
+    width: 125px;
+    margin: auto;
+}
+
+/*For the menu bars*/
+.active 
+{
+    background-color: #4CAF50;
+    color: white;
+}
+
+ul
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    top: 100%
+}
+  
+li 
+{
+    float: left;
+}
+  
+li a 
+{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+  
+li a:hover 
+{
+    background-color: #111;
+}
+
+/* End of menu bar */
+
+/* For tabs */
+/* Style the tab */
+.tab 
+{
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+  
+/* Style the buttons that are used to open the tab content */
+.tab button 
+{
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+  
+/* Change background color of buttons on hover */
+.tab button:hover 
+{
+    background-color: #ddd;
+}
+  
+/* Create an active/current tablink class */
+.tab button.active 
+{
+    background-color: #ccc;
+}
+  
+/* Style the tab content */
+.tabcontent 
+{
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+/* Fade in the tab info */
+.tabcontent 
+{
+    animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+  
+/* Go from zero to full opacity */
+@keyframes fadeEffect 
+{
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* Style the close button */
+.topright 
+{
+    float: right;
+    cursor: pointer;
+    font-size: 28px;
+}
+  
+.topright:hover {color: red;}
+/* End of tabs */
+
+/* For text formatting */
+div.center
+{
+    text-align: center;
+}
+      
+div.left
+{
+    text-align: left;
+}
+      
+div.right
+{
+    text-align: right;
+}
+      
+div.justify
+{
+    text-align: justify;
+} 
+
+div.indent
+{
+    text-indent: 2%;
+}
+
+
+/* Create a blurry background image */
+body, html 
+  {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  * 
+  {
+    box-sizing: border-box;
+  }
+  
+  .forest 
+  {
+    /* The image used */
+    background-image: url("nature_stock_photo_1.jpg");
+    
+    /* Add the blur effect */
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    
+    /* Full height */
+    height: 100%; 
+    
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  /* Position text in the middle of the page/image */
+  .forest-text 
+  {
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+    color: white;
+    font-weight: bold;
+    border: 3px solid #f1f1f1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 80%;
+    padding: 20px;
+    text-align: center;
+  }
+
+
+
+  
+

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" type="text/css" href="css/styles.css">
+   <title>Psych Episodes</title>
+</head>
+
+<script>
+function setPage()
+{
+   //Save the data from the server into variables.
+   var episode_id = "<%= episode_id %>";
+   var episode_number = "<%= episode_number %>";
+   var episode_name = "<%= episode_name %>";
+   var season_id = "<%= season_id %>";
+
+   var split_id = episode_id.split(",");
+   var split_num = episode_number.split(",");
+   var split_name = episode_name.split(",");
+
+   var txt = "<table><tr><th></th>" + 
+             "<th>Episodes</th>" +
+             "</tr>";
+
+   for(var i = 0; i < split_id.length; i++)
+   {
+      if(split_id[i] != null)
+      {
+         txt += "<tr><th>" + split_num[i] + "</th>";
+         txt += "<th><input type='button' id = 'episode_" + 
+                i + "' name='episode_" + i + "' value='" + 
+                split_name[i] + "'></text></th>";
+      }
+   }
+
+   txt += "</table>";
+
+   document.getElementById("episodes").innerHTML = txt;
+   document.getElementById("season").innerHTML = "Season " + season_id;
+}
+
+</script>
+<body>
+   <script>
+      window.onload = setPage;
+    </script>
+
+   <div class="center div1">
+      <br>
+      <h1 id="season"></h1>
+      <br>
+   </div>
+   <br><hr><br>
+   <div id="episodes" class="center div2">
+      
+   </div>
+</body>
+</html>

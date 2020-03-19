@@ -1,7 +1,19 @@
 body
 {
-   background-color: rgba(42, 108, 171, 0.589);
+   background-color: #45c22e;
 }
+
+/* Image above menu bar */
+.headerLogo 
+{
+    background-image: url('fantasy-dragon.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: top center;
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+} 
 
 .center
 {
@@ -12,12 +24,26 @@ body
 {
    margin-right: 400px;
    margin-left: 400px;
-   background-color: rgba(42, 108, 171, 0.589)
+   background-color: #3effc2;
 }
 
 .div2
 {
    margin-right: 350px;
    margin-left: 350px;
-   background-color: rgba(74, 42, 171, 0.589)
+   background-color: #bbff3e;
+}
+
+.div3
+{
+   margin-right: 350px;
+   margin-left: 350px;
+   padding-top: 50px;
+   padding-bottom: 50px;
+   background-color: #bbff3e;
+}
+
+table
+{
+   margin: auto;
 }

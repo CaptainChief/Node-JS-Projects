@@ -3,26 +3,36 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Choose a Season</title>
+   <link rel="stylesheet" type="text/css" href="css/styles.css">
+   <title>Psych Seasons</title>
 </head>
 <body>
+   <div class="center div1">
+      <br>
+      <h1>Psych Seasons</h1>
+      <br>
+   </div>
 
-   <form action="/season" method="GET">
-      <label for="cars">Choose a season to view:</label>
+   <br><hr><br>
+         
+   <div class="center div3">
+      <form action="/season" method="GET">
+         <label for="cars">Choose a Psych Season:</label>
 
-      <select id="season">
-         <option value="1">1</option>
-         <option value="2">2</option>
-         <option value="3">3</option>
-         <option value="4">4</option>
-         <option value="5">5</option>
-         <option value="6">6</option>
-         <option value="7">7</option>
-         <option value="8">8</option>
-      </select>
+         <select id="season" name="season">
+            <option value="1">Season 1</option>
+            <option value="2">Season 2</option>
+            <option value="3">Season 3</option>
+            <option value="4">Season 4</option>
+            <option value="5">Season 5</option>
+            <option value="6">Season 6</option>
+            <option value="7">Season 7</option>
+            <option value="8">Season 8</option>
+         </select>
 
-      <button type="submit" value="View">Choose Season</button>
+         <button type="submit" value="View">Choose Season</button>
 
-   </form>
+      </form>
+   </div>
 </body>
 </html>

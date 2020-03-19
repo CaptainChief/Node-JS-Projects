@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>PHP Project Main Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="personal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<script>
+    function openView(evt, section) 
+    {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) 
+        {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) 
+        {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(section).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    function details(id)
+    {
+      var encodedParam = encodeURIComponent('detail_page.php?type=' + type + '&id=' + id);
+      window.location.replace('detail_page.php?type=' + type + '&id=' + id)
+    }
+
+    function server(id)
+   {
+      var url = require('url');
+      var address = 'http://localhost:5001/season?season=" + id';
+      var query = url.parse(address, true);
+
+      page = new XMLHttpRequest();
+      page.open("GET", query);
+      page.onreadystatechange=function()
+      {
+            if (page.readyState==4 && xmlhttp.status==200)
+            {
+               string = page.responseText;
+               alert(string);
+            }
+      }
+      page.send();
+   }
+
+</script>
+
+<body>
+
+  <div class="headerLogo center"></div>
+
+  <ul>
+    <li><a class="active" href="">Home Page</a></li>
+  </ul>
+
+  <div class="tab center">
+  <button class="tablinks" onclick="openView(event, 'Season 1')">Season 1</button>
+  <button class="tablinks" onclick="openView(event, 'Season 2')">Season 2</button>
+  <button class="tablinks" onclick="openView(event, 'Season 3')">Season 3</button>
+  <button class="tablinks" onclick="openView(event, 'Season 4')">Season 4</button> 
+  <button class="tablinks" onclick="openView(event, 'Season 5')">Season 5</button> 
+  <button class="tablinks" onclick="openView(event, 'Season 6')">Season 6</button> 
+  <button class="tablinks" onclick="openView(event, 'Season 7')">Season 7</button> 
+  <button class="tablinks" onclick="openView(event, 'Season 8')">Season 8</button> 
+
+</div>
+
+<!-- Tab content -->
+
+<div id="Season 1" class="tabcontent center">
+   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+   <h3>Season 1</h3>
+   <script>
+      server(1);
+   </script>
+   <div class = "inner-left left">
+   </div>   
+</div>
+
+<div id="Season 2" class="tabcontent center">
+   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+   <h3>Season 2</h3>
+   <div class = "inner-left left">
+   <script>
+      server(2);
+   </script>
+   </div>   
+</div>
+
+<div id="Season 3" class="tabcontent center">
+   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+   <h3>Season 3</h3>
+   <script>
+      server(3);
+   </script>
+   <div class = "inner-left left">
+   </div>   
+</div>
+
+<div id="Season 4" class="tabcontent center">
+   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+   <h3>Season 4</h3>
+   <script>
+      server(4);
+   </script>
+   <div class = "inner-left left">
+   </div>   
+</div>
+
+<div id="Season 5" class="tabcontent center">
+   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+   <h3>Season 5</h3>
+   <script>
+      server(5);
+   </script>
+   <div class = "inner-left left">
+   </div>   
+</div>
+
+<div id="Season 6" class="tabcontent center">
+   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+   <h3>Season 6</h3>
+   <script>
+      server(6);
+   </script>
+   <div class = "inner-left left">
+   </div>   
+</div>
+
+<div id="Season 7" class="tabcontent center">
+   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+   <h3>Season 7</h3>
+   <script>
+      server(7);
+   </script>
+   <div class = "inner-left left">
+   </div>   
+</div>
+
+<div id="Season 8" class="tabcontent center">
+   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+   <h3>Season 8</h3>
+   <script>
+      server(8);
+   </script>
+   <div class = "inner-left left">
+   </div>   
+</div>
+
+</body>
+</html>

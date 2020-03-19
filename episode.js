@@ -25,11 +25,7 @@ function season_1(res, req)
      }
      else
      {
-         // res.json = result.rows;
-         // res.data.json(result.rows);
-         // result.rows.json;
-         // res.render(result);
-         res.render('./result.ejs');
+        res.render('./result.ejs');
 
      }
    })
