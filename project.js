@@ -25,6 +25,8 @@ app.use(session(
   resave: false,
   saveUninitialized: true
 }))
+app.use(express.json()); // suport json encoded bodies
+app.use(express.urlencoded({extended: true})) // support url encoded bodies
 
 app.set('port', process.env.PORT || 5001)
   // set up directory for static files
@@ -99,7 +101,7 @@ app.set('port', process.env.PORT || 5001)
         var e_num;
         var e_name;
         var f_data = [];
-        var data;
+        var data = false;
 
         e_summ = result.rows[0].e_summ;
         e_num = result.rows[0].e_num;
@@ -113,7 +115,7 @@ app.set('port', process.env.PORT || 5001)
           }
           else
           {
-            if(result.rows == 0)
+            if(result.rows.length == 0)
             {
               data = false;
             }
@@ -121,21 +123,23 @@ app.set('port', process.env.PORT || 5001)
             {
               for(var i = 0; i < result.rowCount; i++)
               {
-                f_data.push(result.rows[i].id);
+                f_data.push(result.rows[i].f_data);
+                data = true;
               }
+
+              var episode_data = 
+              { 
+                e_summ: e_summ, 
+                e_num: e_num,
+                e_name: e_name,
+                f_data: f_data,
+                data: data
+              };
+              console.log(f_data);
+              res.render("details", episode_data);
             }
           }
         })
-
-        var episode_data = 
-        { 
-          e_summ: e_summ, 
-          e_num: e_num,
-          e_name: e_name,
-          f_data: f_data,
-          data: data
-        };
-        res.render("details", episode_data);
       }
     })
   })
@@ -188,22 +192,18 @@ app.set('port', process.env.PORT || 5001)
 
     var id = req.body.episode;
     var f_fact = req.body.f_fact;
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!              " + req.body);
 
-    if(id != NULL && f_fact != NULL)
+    pool.query("INSERT INTO facts(e_id, f_data) VALUES(" + id + ", '" + f_fact + "')", function(err, result)
     {
-      pool.query('INSERT INTO facts(e_id, f_data) VALUES(' + id + ', ' + f_fact + ')', function(err, result)
+      if(err)
       {
-        if(err)
-        {
-          console.log("There was an error inserting into the database. (add_fact) \n", err);
-        }
-        else
-        {
-          res.render('new_fact');
-        }
-      });
-    }
+        console.log("There was an error inserting into the database. (add_fact) \n", err);
+      }
+      else
+      {
+        res.render('new_fact');
+      }
+    });
   })
 
   // run localhost
