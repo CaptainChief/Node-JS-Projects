@@ -1,13 +1,30 @@
 const express = require('express');
 const DATABASE_URL = "postgres://gtnrtpvqtdlpmf:dccad0773782a76dde12b67125afee3f62c4920b4010061fcb6f1588c213aae2@ec2-18-235-20-228.compute-1.amazonaws.com:5432/d2tkmjcqt4i04l?ssl=true";
-var episode = require('./episode.js');
+const session = require('express-session');
 const { Pool } = require('pg');
+
+var episode = require('./episode.js');
+var body = require('body-parser')
+
+var app = express();
+
 const pool = new Pool(
 {
   connectionString: process.env.DATABASE_URL || DATABASE_URL,
   rejectUnauthorized: false
 });
-var app = express();
+
+app.use(function(req, res, next){
+  req.body = {};
+  next();
+});
+
+app.use(session(
+{
+  secret: 'Psych_fun',
+  resave: false,
+  saveUninitialized: true
+}))
 
 app.set('port', process.env.PORT || 5001)
   // set up directory for static files
@@ -19,18 +36,51 @@ app.set('port', process.env.PORT || 5001)
   // set default view engine
   .set('view engine', 'ejs')
 
-
-  .get('/check_log', function(req, res, next)
-  {
-    var u_name = req.query.username;
-    var pass = req.query.pass;
-
-    
-  })
-
+  
+  ///////////////////////////////////////////////////////////
+  // GET
+  //////////////////////////////////////////////////////////
   .get('/log', function(req, res, next)
   {
     res.render("log");
+  })
+
+  .get('/create', function(req, res, next)
+  {
+    res.render("new_fact")
+  })
+
+  .get('/out', function(req, res, next)
+  {
+    req.session.admin = false;
+    res.sendFile('./episode.html', { root: __dirname + "/public" });
+  })
+
+  .get('/e_number', function(req, res, next)
+  {
+    var season_id = req.query.id;
+    pool.query("SELECT id, e_num FROM episodes WHERE s_id = " + season_id, function(err, result)
+    {
+      if(err)
+      {
+        console.log('There was an error in searching the database (e_number): \n', err);
+      }
+      else
+      {
+        var id = [];
+        var e_num = [];
+
+        for(var i = 0; i < result.rowCount; i++)
+        {
+          id.push(result.rows[i].id);
+          e_num.push(result.rows[i].e_num);
+        }
+        var season_data = { "episode_id": id 
+                          , "episode_number": e_num 
+                          };
+        res.json(season_data);
+      }
+    })
   })
 
   // get details of specific episode
@@ -41,7 +91,7 @@ app.set('port', process.env.PORT || 5001)
     {
       if(err)
       {
-        console.log('There was an error in searching the database: \n', err);
+        console.log('There was an error in searching the database (details_1): \n', err);
       }
       else
       {
@@ -59,7 +109,7 @@ app.set('port', process.env.PORT || 5001)
         {
           if(err)
           {
-            console.log('There was an error in searching the database: \n', err);
+            console.log('There was an error in searching the database (details_2): \n', err);
           }
           else
           {
@@ -97,7 +147,7 @@ app.set('port', process.env.PORT || 5001)
     {
       if(err)
       {
-        console.log('There was an error in searching the database: \n', err);
+        console.log('There was an error in searching the database (season): \n', err);
       }
       else
       {
@@ -126,6 +176,34 @@ app.set('port', process.env.PORT || 5001)
   .get('/', function(req, res) 
   {
     res.sendFile('./episode.html', { root: __dirname + "/public" });
+  })
+
+
+
+  ///////////////////////////////////////////////////////////
+  // POST
+  //////////////////////////////////////////////////////////
+  .post('/add_fact', function(req, res)
+  {
+
+    var id = req.body.episode;
+    var f_fact = req.body.f_fact;
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!              " + req.body);
+
+    if(id != NULL && f_fact != NULL)
+    {
+      pool.query('INSERT INTO facts(e_id, f_data) VALUES(' + id + ', ' + f_fact + ')', function(err, result)
+      {
+        if(err)
+        {
+          console.log("There was an error inserting into the database. (add_fact) \n", err);
+        }
+        else
+        {
+          res.render('new_fact');
+        }
+      });
+    }
   })
 
   // run localhost

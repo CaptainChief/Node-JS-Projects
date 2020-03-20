@@ -8,6 +8,7 @@
 </head>
 
 <script>
+
     function openView(id, evt, section) 
     {
         // Declare all variables
@@ -83,24 +84,23 @@
       document.getElementById(doc_id).innerHTML = txt;
    }
 
-   function log()
+   function create()
    {
-      document.location = '/log';
+      document.location = '/create';
    }
 
 </script>
 
 <body>
 
-   <div class="headerLogo center"></div>
-
    <div class="psych center">
       <br>
       <h2 class="center">Psych</h2>
+      <ul>
+         <li><a class="active" href="">View Episodes</a></li>
+         <li><a class="" onclick="create()">Add Fun Fact</a></li>
+      </ul>
    </div>
-   <ul>
-      <li><a onclick="log()">Log In</a></li>
-   </ul>
 
    <div class="tab center">
 
@@ -179,6 +179,5 @@
 
    </div>   
 </div>
-
 </body>
 </html>

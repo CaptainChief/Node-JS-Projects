@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>Psych Season</title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" href="css/personal.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<script>
+   function back()
+   {
+      document.location = '/';
+   }
+
+   function e_season()
+   {
+      var id = document.getElementById("season").value;
+      var url = location.href;
+      var address = '/../e_number?id=' + id;
+      var query = url + address;
+
+      var page = new XMLHttpRequest();
+      page.onreadystatechange=function()
+      {
+         if (page.readyState==4 && page.status==200)
+         {
+            action(page);
+         }
+      }
+      page.open("GET", query, true);
+      page.send();
+   }
+
+   function action(xhttp)
+   {
+      var text = JSON.parse(xhttp.responseText);
+      var txt = "<option disabled selected value> -- select an episode -- </option>";
+
+      for(var i = 0; i < text.episode_id.length; i++)
+      {
+         if(text.episode_id[i] != null)
+         {
+            txt += "<option value=" + text.episode_id[i] + "> Episode " + text.episode_number[i] + "</option>";
+         }
+      }
+
+      document.getElementById('episode').innerHTML = txt;
+   }
+</script>
+
+<body>
+   <div class="psych center">
+      <br>
+      <h2 class="center">Psych</h2>
+      <ul>
+         <li><a class="" onclick="back()">View Episodes</a></li>
+         <li><a class="active" href="">Add Fun Fact</a></li>
+      </ul>
+   </div>
+
+   <hr>
+
+<form action="/add_fact" method="POST">
+   <div id="episode details" class="center">
+
+      <label for="season">Season:</label>
+      <select id="season" onchange="e_season()">
+         <option disabled selected value> -- select a season -- </option>
+         <option value="1">Season 1</option>
+         <option value="2">Season 2</option>
+         <option value="3">Season 3</option>
+         <option value="4">Season 4</option>
+         <option value="5">Season 5</option>
+         <option value="6">Season 6</option>
+         <option value="7">Season 7</option>
+         <option value="8">Season 8</option>
+      </select>
+<br><br>
+      Episode:
+      <select id="episode" name="episode">
+         <option disabled selected value> -- select an episode -- </option>
+      </select><br>
+
+      <p>Fun Fact:</p>
+      <div id="details" name="details" class = "inner-left left">
+         <textarea id="f_fact" name="f_fact" cols="35" rows="10">Write Here...</textarea>
+      </div>  
+      <input type="submit" value="Add">
+   </div>
+</form>
+
+</body>
+</html>

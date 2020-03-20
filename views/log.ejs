@@ -14,15 +14,23 @@
 </script>
 <body>
    
-   <ul>
-      <li><a onclick="back()">Back</a></li>
-   </ul>
+   <div class="psych center">
+      <br>
+      <h2 class="center">Log In</h2>
+      <ul>
+         <li><a onclick="back()">Back</a></li>
+      </ul>
+   </div>
 
 
    <div id="episode details" class="center">
-      <form action="/check_log" method="GET">
-         Username: <input type="text" name="username">
-         Password: <input type="password" name="pass">
+      <br><br>
+      <form action="" method="">
+         Username: <input type="text" name="username" required>
+         <br>
+         Password: <input type="password" name="pass" required>
+         <br><br>
+         <input type="submit" value="Log In">
       </form>
    </div>
 </body>

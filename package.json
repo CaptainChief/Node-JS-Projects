@@ -9,12 +9,22 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
+    "express-session": "^1.17.0",
     "pg": "^7.18.2",
     "postgres": "^1.0.2",
     "psql": "0.0.1"
   },
   "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CaptainChief/Node-JS-Projects.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CaptainChief/Node-JS-Projects/issues"
+  },
+  "homepage": "https://github.com/CaptainChief/Node-JS-Projects#readme",
   "description": ""
 }
