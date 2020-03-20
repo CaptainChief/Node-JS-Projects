@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>Episode Details</title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" href="css/personal.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<script>
+    
+   function setPage()
+   {
+      var e_summ = "<%= e_summ %>"; 
+      var e_num = "<%= e_num %>";
+      var e_name = "<%= e_name %>";
+      var data = "<%= data %>";
+      var f_data = "<%= f_data %>";
+
+      var name = e_num + ". " + e_name;
+      document.getElementById("name").innerHTML = name;
+      document.getElementById("details").innerHTML = e_summ;
+
+      if(data == false)
+      {
+         document.getElementById("facts").innerHTML = "Cannot find fun facts for this episode.";      }
+      else
+      {
+         document.getElementById("facts").innerHTML = f_data;      }
+   }
+
+   function back()
+   {
+      document.location = '/';
+   }
+
+</script>
+
+<body>
+
+   <ul>
+      <li><a onclick="back()">Back</a></li>
+   </ul>
+
+
+   <div id="episode details" class="center">
+      <br><br>
+      <h3 id="name" name="name"></h3>
+      <br><hr><br>
+      <p>Summary:</p>
+      <div id="details" name="details" class = "inner-left left">
+      </div>  
+
+      <hr>
+
+      <p>Fun Facts: </p>
+      <div id="facts" name="facts" class = "inner-left left">
+      </div> 
+   </div>
+   <hr>
+   <script> setPage(); </script>
+</body>
+</html>

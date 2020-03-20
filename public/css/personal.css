@@ -7,16 +7,21 @@
     font-weight: bold;
 }
 
+.psych
+{
+    background: #333;
+}
+
 /* Image above menu bar */
 .headerLogo 
 {
-    background-image: url('./psych_main.jpg');
+    /* background-image: url('./psych_main.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: top center;
     width: 100%;
     height: 150px;
-    object-fit: cover;
+    object-fit: cover; */
 }  
 
 .create
@@ -33,7 +38,7 @@
 
 .inner-left
 {
-    width: 125px;
+    width: 300px;
     margin: auto;
 }
 
@@ -62,15 +67,15 @@ li
 li a 
 {
     display: block;
-    color: white;
+    color: #4CAF50;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
-  
+
 li a:hover 
 {
-    background-color: #111;
+    background-color: rgba(8, 189, 18, 0.397);
 }
 
 /* End of menu bar */
@@ -167,6 +172,11 @@ div.indent
     text-indent: 2%;
 }
 
+/* header tags */
+h2
+{
+    color: #24d909;
+}
 
 /* Create a blurry background image */
 body, html 

@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-    <title>PHP Project Main Page</title>
+    <title>Psych Season</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="personal.css">
+    <link rel="stylesheet" href="css/personal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <script>
-    function openView(evt, section) 
+    function openView(id, evt, section) 
     {
         // Declare all variables
         var i, tabcontent, tablinks;
@@ -31,53 +30,88 @@
         // Show the current tab, and add an "active" class to the button that opened the tab
         document.getElementById(section).style.display = "block";
         evt.currentTarget.className += " active";
+        server(id);
     }
 
-    function details(id)
+    function get_data(id)
     {
-      var encodedParam = encodeURIComponent('detail_page.php?type=' + type + '&id=' + id);
-      window.location.replace('detail_page.php?type=' + type + '&id=' + id)
+      document.location = '/details?id=' + id;
     }
 
-    function server(id)
+   function server(id)
    {
-      var url = require('url');
-      var address = 'http://localhost:5001/season?season=" + id';
-      var query = url.parse(address, true);
+      var url = location.href;
+      var address = 'season?number=' + id;
+      var query = url + address;
 
-      page = new XMLHttpRequest();
-      page.open("GET", query);
+      var page = new XMLHttpRequest();
       page.onreadystatechange=function()
       {
-            if (page.readyState==4 && xmlhttp.status==200)
-            {
-               string = page.responseText;
-               alert(string);
-            }
+         if (page.readyState==4 && page.status==200)
+         {
+            action(page);
+         }
       }
+      page.open("GET", query, true);
       page.send();
+   }
+
+   function action(xhttp)
+   {
+      
+      var text = JSON.parse(xhttp.responseText);
+
+      
+      var txt = "<table><tr><th></th>" + 
+                "<th>Episodes</th>" +
+                "</tr>";
+
+      for(var i = 0; i < text.episode_id.length; i++)
+      {
+         if(text.episode_id[i] != null)
+         {
+            txt += "<tr><th>" + text.episode_number[i] + "</th>";
+            txt += "<th><input type='button' id = 'episode_" + 
+                  i + "' name='episode_" + i + "' value='" + 
+                  text.episode_name[i] + "' onclick='get_data(" + text.episode_id[i] + ")''></text></th>";
+         }
+      }
+
+      txt += "</table>";
+      doc_id = text.season_id[0]; 
+
+      document.getElementById(doc_id).innerHTML = txt;
+   }
+
+   function log()
+   {
+      document.location = '/log';
    }
 
 </script>
 
 <body>
 
-  <div class="headerLogo center"></div>
+   <div class="headerLogo center"></div>
 
-  <ul>
-    <li><a class="active" href="">Home Page</a></li>
-  </ul>
+   <div class="psych center">
+      <br>
+      <h2 class="center">Psych</h2>
+   </div>
+   <ul>
+      <li><a onclick="log()">Log In</a></li>
+   </ul>
 
-  <div class="tab center">
-  <button class="tablinks" onclick="openView(event, 'Season 1')">Season 1</button>
-  <button class="tablinks" onclick="openView(event, 'Season 2')">Season 2</button>
-  <button class="tablinks" onclick="openView(event, 'Season 3')">Season 3</button>
-  <button class="tablinks" onclick="openView(event, 'Season 4')">Season 4</button> 
-  <button class="tablinks" onclick="openView(event, 'Season 5')">Season 5</button> 
-  <button class="tablinks" onclick="openView(event, 'Season 6')">Season 6</button> 
-  <button class="tablinks" onclick="openView(event, 'Season 7')">Season 7</button> 
-  <button class="tablinks" onclick="openView(event, 'Season 8')">Season 8</button> 
+   <div class="tab center">
 
+   <button class="tablinks" onclick="openView(1, event, 'Season 1')">Season 1</button>
+   <button class="tablinks" onclick="openView(2, event, 'Season 2')">Season 2</button>
+   <button class="tablinks" onclick="openView(3, event, 'Season 3')">Season 3</button>
+   <button class="tablinks" onclick="openView(4, event, 'Season 4')">Season 4</button> 
+   <button class="tablinks" onclick="openView(5, event, 'Season 5')">Season 5</button> 
+   <button class="tablinks" onclick="openView(6, event, 'Season 6')">Season 6</button> 
+   <button class="tablinks" onclick="openView(7, event, 'Season 7')">Season 7</button> 
+   <button class="tablinks" onclick="openView(8, event, 'Season 8')">Season 8</button> 
 </div>
 
 <!-- Tab content -->
@@ -85,80 +119,64 @@
 <div id="Season 1" class="tabcontent center">
    <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
    <h3>Season 1</h3>
-   <script>
-      server(1);
-   </script>
-   <div class = "inner-left left">
+   <div id="1" class = "inner-left left">
+
    </div>   
 </div>
 
 <div id="Season 2" class="tabcontent center">
    <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
    <h3>Season 2</h3>
-   <div class = "inner-left left">
-   <script>
-      server(2);
-   </script>
+   <div id="2" class = "inner-left left">
+
    </div>   
 </div>
 
 <div id="Season 3" class="tabcontent center">
    <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
    <h3>Season 3</h3>
-   <script>
-      server(3);
-   </script>
-   <div class = "inner-left left">
+   <div id="3" class = "inner-left left">
+
    </div>   
 </div>
 
 <div id="Season 4" class="tabcontent center">
    <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
    <h3>Season 4</h3>
-   <script>
-      server(4);
-   </script>
-   <div class = "inner-left left">
+   <div id="4" class = "inner-left left">
+
    </div>   
 </div>
 
 <div id="Season 5" class="tabcontent center">
    <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
    <h3>Season 5</h3>
-   <script>
-      server(5);
-   </script>
-   <div class = "inner-left left">
+   <div id="5" class = "inner-left left">
+
    </div>   
 </div>
 
 <div id="Season 6" class="tabcontent center">
    <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
    <h3>Season 6</h3>
-   <script>
-      server(6);
-   </script>
-   <div class = "inner-left left">
+   <div id="6" class = "inner-left left">
+
    </div>   
 </div>
 
 <div id="Season 7" class="tabcontent center">
    <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
    <h3>Season 7</h3>
-   <script>
-      server(7);
-   </script>
-   <div class = "inner-left left">
+   <div id="7" class = "inner-left left">
+
    </div>   
 </div>
 
 <div id="Season 8" class="tabcontent center">
    <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
    <h3>Season 8</h3>
-   <script>
-      server(8);
-   </script>
-   <div class = "inner-left left">
+   <div id="8" class = "inner-left left">
+
    </div>   
 </div>
 

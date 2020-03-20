@@ -19,48 +19,113 @@ app.set('port', process.env.PORT || 5001)
   // set default view engine
   .set('view engine', 'ejs')
 
+
+  .get('/check_log', function(req, res, next)
+  {
+    var u_name = req.query.username;
+    var pass = req.query.pass;
+
+    
+  })
+
+  .get('/log', function(req, res, next)
+  {
+    res.render("log");
+  })
+
   // get details of specific episode
-  .get('/details', episode.get_details)
+  .get('/details', function(req, res, next)
+  {
+    var episode_id = req.query.id;
+    pool.query("SELECT e_name, e_num, e_summ FROM episodes WHERE id = " + episode_id, function(err, result)
+    {
+      if(err)
+      {
+        console.log('There was an error in searching the database: \n', err);
+      }
+      else
+      {
+        var e_summ;
+        var e_num;
+        var e_name;
+        var f_data = [];
+        var data;
+
+        e_summ = result.rows[0].e_summ;
+        e_num = result.rows[0].e_num;
+        e_name = result.rows[0].e_name;
+
+        pool.query("SELECT f_data FROM facts WHERE e_id = " + episode_id, function(err, result)
+        {
+          if(err)
+          {
+            console.log('There was an error in searching the database: \n', err);
+          }
+          else
+          {
+            if(result.rows == 0)
+            {
+              data = false;
+            }
+            else
+            {
+              for(var i = 0; i < result.rowCount; i++)
+              {
+                f_data.push(result.rows[i].id);
+              }
+            }
+          }
+        })
+
+        var episode_data = 
+        { 
+          e_summ: e_summ, 
+          e_num: e_num,
+          e_name: e_name,
+          f_data: f_data,
+          data: data
+        };
+        res.render("details", episode_data);
+      }
+    })
+  })
 
   .get('/season', function(req, res, next)
+  {
+    var season_id = req.query.number;
+    pool.query("SELECT id, e_num, e_name FROM episodes WHERE s_id = " + season_id, function(err, result)
     {
-      var season_id = req.query.season;
-      pool.query("SELECT id, e_num, e_name FROM episodes WHERE s_id = " + season_id, function(err, result)
+      if(err)
       {
-        if(err)
+        console.log('There was an error in searching the database: \n', err);
+      }
+      else
+      {
+        var id = [];
+        var e_num = [];
+        var e_name = [];
+
+        for(var i = 0; i < result.rowCount; i++)
         {
-          console.log('There was an error in searching the database: \n', err);
+          id.push(result.rows[i].id);
+          e_num.push(result.rows[i].e_num);
+          e_name.push(result.rows[i].e_name);
         }
-        else
-        {
 
-          var id = [];
-          var e_num = [];
-          var e_name = [];
-
-          for(var i = 0; i < result.rowCount; i++)
-          {
-            id.push(result.rows[i].id);
-            e_num.push(result.rows[i].e_num);
-            e_name.push(result.rows[i].e_name);
-          }
-
-          var season_data = 
-          { 
-            episode_id: id, //array
-            episode_number: e_num, //array
-            episode_name: e_name, //array 
-            season_id: season_id
-          };
-          res.render("./season", season_data);
-        }
-      })
+        var season_data = { "episode_id": id 
+                          , "episode_number": e_num 
+                          , "episode_name": e_name
+                          , "season_id": season_id
+                          };
+        res.json(season_data);
+      }
     })
+  })
 
   // set default route and content
   .get('/', function(req, res) 
   {
-    res.sendFile('./test', { root: __dirname + "/public" });
+    res.sendFile('./episode.html', { root: __dirname + "/public" });
   })
 
   // run localhost
