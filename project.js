@@ -3,7 +3,6 @@ const DATABASE_URL = "postgres://gtnrtpvqtdlpmf:dccad0773782a76dde12b67125afee3f
 const session = require('express-session');
 const { Pool } = require('pg');
 
-var episode = require('./episode.js');
 var body = require('body-parser')
 
 var app = express();
@@ -101,13 +100,14 @@ app.set('port', process.env.PORT || 5001)
         var e_num;
         var e_name;
         var f_data = [];
+        var f_id = [];
         var data = false;
 
         e_summ = result.rows[0].e_summ;
         e_num = result.rows[0].e_num;
         e_name = result.rows[0].e_name;
 
-        pool.query("SELECT f_data FROM facts WHERE e_id = " + episode_id, function(err, result)
+        pool.query("SELECT f_data, id FROM facts WHERE e_id = " + episode_id, function(err, result)
         {
           if(err)
           {
@@ -124,18 +124,20 @@ app.set('port', process.env.PORT || 5001)
               for(var i = 0; i < result.rowCount; i++)
               {
                 f_data.push(result.rows[i].f_data);
+                f_id.push(result.rows[i].id)
                 data = true;
               }
 
               var episode_data = 
               { 
+                f_id: f_id,
+                e_id: episode_id,
                 e_summ: e_summ, 
                 e_num: e_num,
                 e_name: e_name,
                 f_data: f_data,
                 data: data
               };
-              console.log(f_data);
               res.render("details", episode_data);
             }
           }
@@ -182,7 +184,87 @@ app.set('port', process.env.PORT || 5001)
     res.sendFile('./episode.html', { root: __dirname + "/public" });
   })
 
+  .get('/delete_fact', function(req, res)
+  {
+    var f_id = req.query.f_id;
+    var e_id = req.query.e_id;
 
+    pool.query("DELETE FROM facts WHERE id = " + f_id, function(err, result)
+    {
+      if(err)
+      {
+        console.log("There was an error deleting from the database. (delete_fact) \n", err);
+      }
+      else
+      {
+        pool.query("SELECT e_name, e_num, e_summ FROM episodes WHERE id = " + e_id, function(err, result)
+        {
+          if(err)
+          {
+            console.log('There was an error in searching the database (details_1): \n', err);
+          }
+          else
+          {
+            var e_summ;
+            var e_num;
+            var e_name;
+            var f_data = [];
+            var f_id = [];
+            var data = false;
+    
+            e_summ = result.rows[0].e_summ;
+            e_num = result.rows[0].e_num;
+            e_name = result.rows[0].e_name;
+    
+            pool.query("SELECT f_data, id FROM facts WHERE e_id = " + e_id, function(err, result)
+            {
+              if(err)
+              {
+                console.log('There was an error in searching the database (details_2): \n', err);
+              }
+              else
+              {
+                if(result.rows.length == 0)
+                {
+                  data = false;
+                }
+                else
+                {
+                  for(var i = 0; i < result.rowCount; i++)
+                  {
+                    f_data.push(result.rows[i].f_data);
+                    f_id.push(result.rows[i].id)
+                    data = true;
+                  }
+    
+                  var episode_data = 
+                  { 
+                    f_id: f_id,
+                    e_id: e_id,
+                    e_summ: e_summ, 
+                    e_num: e_num,
+                    e_name: e_name,
+                    f_data: f_data,
+                    data: data
+                  };
+                  res.render("details", episode_data);
+                }
+              }
+            })
+          }
+        })
+      }
+    })
+  })
+
+  .get('/update_fact', function(req, res)
+  {
+    var f_id = req.query.f_id;
+    var e_id = req.query.e_id;
+    var data = req.query.data;
+
+    res.render('update_fact', {f_id: f_id, e_id: e_id, data: data});
+  })
 
   ///////////////////////////////////////////////////////////
   // POST
@@ -204,6 +286,83 @@ app.set('port', process.env.PORT || 5001)
         res.render('new_fact');
       }
     });
+  })
+
+  .post('/update', function(req, res)
+  {
+    var f_id = req.body.f_id;
+    var e_id = req.body.e_id;
+    var f_fact = req.body.f_fact;
+    console.log(f_fact);
+    console.log(f_id);
+    console.log(e_id);
+
+    pool.query("UPDATE facts SET f_data = '" + f_fact +"' WHERE id = " + f_id, function(err, result)
+    {
+      if(err)
+      {
+        console.log("There was an error updating the database. (/update) \n", err);
+      }
+      else
+      {
+        pool.query("SELECT e_name, e_num, e_summ FROM episodes WHERE id = " + e_id, function(err, result)
+        {
+          if(err)
+          {
+            console.log('There was an error in searching the database (details_1): \n', err);
+          }
+          else
+          {
+            var e_summ;
+            var e_num;
+            var e_name;
+            var f_data = [];
+            var f_id = [];
+            var data = false;
+    
+            e_summ = result.rows[0].e_summ;
+            e_num = result.rows[0].e_num;
+            e_name = result.rows[0].e_name;
+    
+            pool.query("SELECT f_data, id FROM facts WHERE e_id = " + e_id, function(err, result)
+            {
+              if(err)
+              {
+                console.log('There was an error in searching the database (details_2): \n', err);
+              }
+              else
+              {
+                if(result.rows.length == 0)
+                {
+                  data = false;
+                }
+                else
+                {
+                  for(var i = 0; i < result.rowCount; i++)
+                  {
+                    f_data.push(result.rows[i].f_data);
+                    f_id.push(result.rows[i].id)
+                    data = true;
+                  }
+    
+                  var episode_data = 
+                  { 
+                    f_id: f_id,
+                    e_id: e_id,
+                    e_summ: e_summ, 
+                    e_num: e_num,
+                    e_name: e_name,
+                    f_data: f_data,
+                    data: data
+                  };
+                  res.render("details", episode_data);
+                }
+              }
+            })
+          }
+        })
+      }
+    })
   })
 
   // run localhost

@@ -9,13 +9,27 @@
 </head>
 <script>
     
+   function update_fact(f_id, e_id, data)
+   {
+      document.location = '/update_fact?f_id=' + f_id + "&e_id=" + e_id + "&data=" + data;
+   }
+
+   function delete_fact(f_id, e_id)
+   {
+      document.location = '/delete_fact?f_id=' + f_id + "&e_id=" + e_id;
+   }
+
    function setPage()
    {
+      var e_id = "<%= e_id %>";
       var e_summ = "<%= e_summ %>"; 
       var e_num = "<%= e_num %>";
       var e_name = "<%= e_name %>";
       var data = "<%= data %>";
       var f_data = "<%= f_data %>";
+      var f_id = "<%= f_id %>";
+
+      var text = "";
 
       var name = e_num + ". " + e_name;
       document.getElementById("name").innerHTML = name;
@@ -23,10 +37,22 @@
 
       if(data == false)
       {
-         document.getElementById("facts").innerHTML = "Cannot find fun facts for this episode.";      }
+         document.getElementById("facts").innerHTML = "Cannot find fun facts for this episode.";      
+      }
       else
       {
-         document.getElementById("facts").innerHTML = f_data;      }
+         var split_id = f_id.split(',');
+         var split_data = f_data.split(',');
+
+         for(var i = 0; i < split_id.length; i++)
+         {
+            text += "<input type='button' onclick='update_fact(" + split_id[i] + ", " + e_id + ", \"" + split_data[i] + "\")' value='Update Fact'> <br>";
+            text += "<input type='button' onclick='delete_fact(" + split_id[i] + ", " + e_id + ")' value='Delete Fact'> <br>";
+            text += split_data[i] + "<br><hr><br>";
+         }
+
+         document.getElementById("facts").innerHTML = text;      
+      }
    }
 
    function back()

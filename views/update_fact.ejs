@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>Psych Season</title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" href="css/personal.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<script>
+   function set_page()
+   {
+      var e_id = "<%= e_id %>";
+      var f_id = "<%= f_id %>";
+      var data = "<%= data %>";
+
+      document.getElementById("f_fact").value = data;
+      document.getElementById("f_id").value = f_id;
+      document.getElementById("e_id").value = e_id;
+   }
+
+   function update()
+   {
+      document.location = '/update';
+   }
+
+   function back()
+   {
+      document.location = '/';
+   }
+
+</script>
+
+<body>
+   <div class="psych center">
+      <br>
+      <h2 class="center">Psych</h2>
+      <ul>
+         <li><a class="" onclick="back()">Cancel Update</a></li>
+      </ul>
+   </div>
+
+   <hr>
+
+<form action="/update" method="POST">
+   <input id="f_id" name="f_id" type="hidden">
+   <input id="e_id" name="e_id" type="hidden">
+
+   <div id="episode details" class="center">
+      <p>Fun Fact:</p>
+      <div id="details" name="details" class = "inner-left left">
+         <textarea id="f_fact" name="f_fact" cols="35" rows="10"></textarea>
+      </div>  
+      <input type="submit" value="Update">
+   </div>
+</form>
+
+<script>
+   set_page();
+</script>
+
+</body>
+</html>
