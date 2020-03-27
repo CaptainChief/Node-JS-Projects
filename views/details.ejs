@@ -35,11 +35,7 @@
       document.getElementById("name").innerHTML = name;
       document.getElementById("details").innerHTML = e_summ;
 
-      if(data == false)
-      {
-         document.getElementById("facts").innerHTML = "Cannot find fun facts for this episode.";      
-      }
-      else
+      if(data == "true")
       {
          var split_id = f_id.split(',');
          var split_data = f_data.split(',');
@@ -51,7 +47,11 @@
             text += split_data[i] + "<br><hr><br>";
          }
 
-         document.getElementById("facts").innerHTML = text;      
+         document.getElementById("facts").innerHTML = text;    
+      }
+      else
+      {
+         document.getElementById("facts").innerHTML = "Cannot find fun facts for this episode.";     
       }
    }
 

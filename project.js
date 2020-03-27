@@ -101,7 +101,7 @@ app.set('port', process.env.PORT || 5001)
         var e_name;
         var f_data = [];
         var f_id = [];
-        var data = false;
+        var data;
 
         e_summ = result.rows[0].e_summ;
         e_num = result.rows[0].e_num;
@@ -117,7 +117,7 @@ app.set('port', process.env.PORT || 5001)
           {
             if(result.rows.length == 0)
             {
-              data = false;
+              data = "false";
             }
             else
             {
@@ -125,21 +125,20 @@ app.set('port', process.env.PORT || 5001)
               {
                 f_data.push(result.rows[i].f_data);
                 f_id.push(result.rows[i].id)
-                data = true;
+                data = "true";
               }
-
-              var episode_data = 
-              { 
-                f_id: f_id,
-                e_id: episode_id,
-                e_summ: e_summ, 
-                e_num: e_num,
-                e_name: e_name,
-                f_data: f_data,
-                data: data
-              };
-              res.render("details", episode_data);
             }
+            var episode_data = 
+            { 
+              f_id: f_id,
+              e_id: episode_id,
+              e_summ: e_summ, 
+              e_num: e_num,
+              e_name: e_name,
+              f_data: f_data,
+              data: data
+            };
+            res.render("details", episode_data);
           }
         })
       }
@@ -293,9 +292,6 @@ app.set('port', process.env.PORT || 5001)
     var f_id = req.body.f_id;
     var e_id = req.body.e_id;
     var f_fact = req.body.f_fact;
-    console.log(f_fact);
-    console.log(f_id);
-    console.log(e_id);
 
     pool.query("UPDATE facts SET f_data = '" + f_fact +"' WHERE id = " + f_id, function(err, result)
     {
